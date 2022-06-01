@@ -11,11 +11,11 @@ const PORT = process.env.PORT || 5000;
 
 const app = express();
 
-app.use("/posts", postsRoutes);
-
-app.use(bodyParser.json({limit: "30mb", extended: true}));
 app.use(bodyParser.urlencoded({limit: "30mb", extended: true}));
+app.use(bodyParser.json({limit: "30mb", extended: true}));
 app.use(cors());
+
+app.use("/posts", postsRoutes);
 
 mongoose
     .connect(CONNECTION_URL, {useNewUrlParser: true, useUnifiedTopology: true })
