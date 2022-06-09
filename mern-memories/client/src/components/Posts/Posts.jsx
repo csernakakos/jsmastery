@@ -1,6 +1,6 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import Post from "./Post/Post";
+import { useSelector } from 'react-redux';
 import useStyles from "./styles";
 
 export default function Posts() {

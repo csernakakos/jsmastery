@@ -1,6 +1,6 @@
 import * as api from "../api";
 
-api.fetchPosts;
+// api.fetchPosts;
 
 export const getPosts = () => async (dispatch) => {
     try {
