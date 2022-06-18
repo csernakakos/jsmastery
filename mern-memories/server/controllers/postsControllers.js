@@ -20,7 +20,6 @@ const POST_post = async (req, res) => {
     } catch (error) {
         res.status(409).json({ message: error.message });
     }
-    res.send("POST_post")
 }
 
 export { 
