@@ -22,7 +22,19 @@ const POST_post = async (req, res) => {
     }
 }
 
+const UPDATE_post = async (req, res) => {
+    const { id: _id } = req.params;
+    const post = req.body;
+
+    if (!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send("No posts with that ID.");
+
+    const updatedPost = await PostMessage.findByIdAndUpdate(_id, post, { new: true });
+
+    res.json(updatedPost);
+}
+
 export { 
     GET_posts,
     POST_post,
+    UPDATE_post,
 }
