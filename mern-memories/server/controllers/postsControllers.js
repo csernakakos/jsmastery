@@ -1,5 +1,5 @@
-import PostMessage from "../models/postMessageModel.js";
 import mongoose from "mongoose";
+import PostMessage from "../models/postMessageModel.js";
 
 const GET_posts = async (req, res) => {
     try {
@@ -34,8 +34,21 @@ const UPDATE_post = async (req, res) => {
     res.json(updatedPost);
 }
 
+const DELETE_post = async (req, res) => {
+    const { id: _id } = req.params;
+    
+    if (!mongoose.Types.ObjectId.isValid(_id)) return res.status(404).send("No posts with that ID.");
+
+    await PostMessage.findByIdAndRemove(_id);
+
+    res.json({
+        deleted: true
+    })
+}
+
 export { 
     GET_posts,
     POST_post,
     UPDATE_post,
+    DELETE_post,
 }
