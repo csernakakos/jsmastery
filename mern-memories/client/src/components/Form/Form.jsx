@@ -1,38 +1,51 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { TextField, Button, Typography, Paper } from "@material-ui/core";
 import FileBase from "react-file-base64";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import useStyles from "./styles";
 import { createPost, updatePost } from "../../actions/posts";
 
 export default function Form({ currentId, setCurrentId }) {
-    const [postData, setPostData] = useState({
+
+    const blankPost = {
         creator: "",
         title: "",
         message: "",
         tags: "",
         selectedFile: "",
-    });
+    }
+
+    const [postData, setPostData] = useState(blankPost);
+    const post = useSelector((state) => currentId ? state.posts.find((p) => p._id === currentId) : null);
     const classes = useStyles();
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        if (post) setPostData(post);
+    }, []);
 
     const handleSubmit = (e) => {
         e.preventDefault();
 
         if(currentId) {
             dispatch(updatePost(currentId, postData));
+            clear();
         } else {
             dispatch(createPost(postData));
+            clear();
         }
 
     };
 
-    const clear = () => {};
+    const clear = () => {
+        setCurrentId(null);
+        setPostData(blankPost);
+    };
 
     return (
         <Paper className={classes.paper}>
             <form autoComplete="off" noValidate className={`${classes.root} ${classes.form}`} onSubmit={handleSubmit}>
-                <Typography variant="h6">Creating a Memory</Typography>
+                <Typography variant="h6">{currentId ? "Editing" : "Creating"} a Memory</Typography>
 
                 {/* In the TextFields below, we use the ... spread operator to set the state on only one field of the postData object. */}
                 {/* Creator */}

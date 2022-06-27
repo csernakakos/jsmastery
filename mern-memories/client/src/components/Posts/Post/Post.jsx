@@ -27,7 +27,8 @@ export default function Post({ post, setCurrentId }) {
             </div>
 
             <CardContent>
-                <Typography className={classes.title} variant="h5" gutterBottom >{post.message}</Typography>
+                <Typography className={classes.title} variant="h5" gutterBottom >{post.title}</Typography>
+                <Typography variant="h5" gutterBottom >{post.message}</Typography>
             </CardContent>
 
             <CardActions className={classes.cardActions}>
